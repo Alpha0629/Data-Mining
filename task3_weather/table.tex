@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{booktabs}
+
+\begin{document}
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison of different LSTM models on weather prediction task}
+\label{tab:model_comparison}
+\begin{tabular}{lcc}
+\toprule
+Model & MAE & RMSE \\
+\midrule
+1-Layer LSTM & 4.8903 & 7.6473 \\
+1-Layer LSTM + Attention & 5.3729 & 7.4906 \\
+2-Layer LSTM & \underline{2.0157} & \underline{3.4700} \\
+2-Layer LSTM + Attention & \textbf{2.0118} & \textbf{3.4410} \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{document}

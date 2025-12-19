@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{xcolor}
+
+\begin{document}
+
+\begin{table}[h]
+\centering
+\caption{不同EMA Alpha参数下的异常检测性能指标}
+\label{tab:ema_grid_search}
+\begin{tabular}{c c c c}
+\toprule
+\textbf{EMA Alpha} & \textbf{AUC} & \textbf{F1 Score} & \textbf{Accuracy} \\
+\midrule
+1.0 & 0.6525 & 0.4000 & 0.9596 \\
+0.999 & 0.8586 & 0.6145 & 0.9643 \\
+\textbf{0.99} & \textbf{0.9766} & \textbf{0.7602} & \textbf{0.9788} \\
+0.9 & 0.8453 & 0.4535 & 0.9514 \\
+0.8 & 0.9462 & 0.6752 & 0.9736 \\
+0.7 & 0.7956 & 0.4861 & 0.9617 \\
+0.6 & 0.9343 & 0.6020 & 0.9596 \\
+0.5 & 0.8639 & 0.5455 & 0.9638 \\
+0.4 & 0.8953 & 0.5802 & 0.9648 \\
+0.3 & 0.8345 & 0.3590 & 0.9353 \\
+0.2 & 0.8754 & 0.6265 & 0.9679 \\
+0.1 & 0.9334 & 0.6131 & 0.9602 \\
+0.01 & 0.9624 & 0.7419 & 0.9752 \\
+0.001 & 0.9240 & 0.5909 & 0.9628 \\
+0.0 & 0.9636 & 0.7470 & 0.9783 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}

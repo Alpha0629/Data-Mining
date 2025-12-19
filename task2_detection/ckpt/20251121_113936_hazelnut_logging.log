@@ -1,0 +1,88 @@
+2025-11-21 11:39:36 - INFO - ============================================================
+2025-11-21 11:39:36 - INFO -    Supervised Contrastive Learning → Linear Classifier
+2025-11-21 11:39:36 - INFO - ============================================================
+2025-11-21 11:39:36 - INFO - 使用设备: cuda
+2025-11-21 11:39:36 - INFO - 训练集: 250  测试集: 55
+2025-11-21 11:39:36 - INFO - ============================================================
+2025-11-21 11:39:36 - INFO - 阶段 1: 对比学习训练 encoder
+2025-11-21 11:39:36 - INFO - ============================================================
+2025-11-21 11:39:44 - INFO - [Contrastive Epoch 1] Loss=4.8193
+2025-11-21 11:39:51 - INFO - [Contrastive Epoch 2] Loss=4.8189
+2025-11-21 11:39:59 - INFO - [Contrastive Epoch 3] Loss=4.8186
+2025-11-21 11:40:06 - INFO - [Contrastive Epoch 4] Loss=4.8157
+2025-11-21 11:40:14 - INFO - [Contrastive Epoch 5] Loss=4.7997
+2025-11-21 11:40:22 - INFO - [Contrastive Epoch 6] Loss=4.8237
+2025-11-21 11:40:29 - INFO - [Contrastive Epoch 7] Loss=4.8173
+2025-11-21 11:40:37 - INFO - [Contrastive Epoch 8] Loss=4.8156
+2025-11-21 11:40:44 - INFO - [Contrastive Epoch 9] Loss=4.8071
+2025-11-21 11:40:52 - INFO - [Contrastive Epoch 10] Loss=4.8019
+2025-11-21 11:41:00 - INFO - [Contrastive Epoch 11] Loss=4.8036
+2025-11-21 11:41:07 - INFO - [Contrastive Epoch 12] Loss=4.8018
+2025-11-21 11:41:15 - INFO - [Contrastive Epoch 13] Loss=4.8028
+2025-11-21 11:41:22 - INFO - [Contrastive Epoch 14] Loss=4.8032
+2025-11-21 11:41:30 - INFO - [Contrastive Epoch 15] Loss=4.7921
+2025-11-21 11:41:37 - INFO - [Contrastive Epoch 16] Loss=4.7935
+2025-11-21 11:41:45 - INFO - [Contrastive Epoch 17] Loss=4.7938
+2025-11-21 11:41:52 - INFO - [Contrastive Epoch 18] Loss=4.7651
+2025-11-21 11:42:00 - INFO - [Contrastive Epoch 19] Loss=4.7996
+2025-11-21 11:42:07 - INFO - [Contrastive Epoch 20] Loss=4.7926
+2025-11-21 11:42:15 - INFO - [Contrastive Epoch 21] Loss=4.7779
+2025-11-21 11:42:23 - INFO - [Contrastive Epoch 22] Loss=4.7761
+2025-11-21 11:42:30 - INFO - [Contrastive Epoch 23] Loss=4.7819
+2025-11-21 11:42:38 - INFO - [Contrastive Epoch 24] Loss=4.7907
+2025-11-21 11:42:46 - INFO - [Contrastive Epoch 25] Loss=4.7649
+2025-11-21 11:42:53 - INFO - [Contrastive Epoch 26] Loss=4.7784
+2025-11-21 11:43:01 - INFO - [Contrastive Epoch 27] Loss=4.7548
+2025-11-21 11:43:09 - INFO - [Contrastive Epoch 28] Loss=4.7812
+2025-11-21 11:43:16 - INFO - [Contrastive Epoch 29] Loss=4.7780
+2025-11-21 11:43:24 - INFO - [Contrastive Epoch 30] Loss=4.7694
+2025-11-21 11:43:32 - INFO - [Contrastive Epoch 31] Loss=4.7732
+2025-11-21 11:43:39 - INFO - [Contrastive Epoch 32] Loss=4.7459
+2025-11-21 11:43:47 - INFO - [Contrastive Epoch 33] Loss=4.7550
+2025-11-21 11:43:54 - INFO - [Contrastive Epoch 34] Loss=4.7569
+2025-11-21 11:44:02 - INFO - [Contrastive Epoch 35] Loss=4.7409
+2025-11-21 11:44:09 - INFO - [Contrastive Epoch 36] Loss=4.7610
+2025-11-21 11:44:17 - INFO - [Contrastive Epoch 37] Loss=4.7877
+2025-11-21 11:44:25 - INFO - [Contrastive Epoch 38] Loss=4.7673
+2025-11-21 11:44:32 - INFO - [Contrastive Epoch 39] Loss=4.7673
+2025-11-21 11:44:40 - INFO - [Contrastive Epoch 40] Loss=4.7487
+2025-11-21 11:44:47 - INFO - [Contrastive Epoch 41] Loss=4.7192
+2025-11-21 11:44:55 - INFO - [Contrastive Epoch 42] Loss=4.7264
+2025-11-21 11:45:03 - INFO - [Contrastive Epoch 43] Loss=4.7309
+2025-11-21 11:45:10 - INFO - [Contrastive Epoch 44] Loss=4.7143
+2025-11-21 11:45:17 - INFO - [Contrastive Epoch 45] Loss=4.7346
+2025-11-21 11:45:25 - INFO - [Contrastive Epoch 46] Loss=4.7866
+2025-11-21 11:45:32 - INFO - [Contrastive Epoch 47] Loss=4.7738
+2025-11-21 11:45:40 - INFO - [Contrastive Epoch 48] Loss=4.7628
+2025-11-21 11:45:48 - INFO - [Contrastive Epoch 49] Loss=4.7306
+2025-11-21 11:45:55 - INFO - [Contrastive Epoch 50] Loss=4.7259
+2025-11-21 11:45:55 - INFO - 对比学习阶段完成！
+2025-11-21 11:45:55 - INFO - ============================================================
+2025-11-21 11:45:55 - INFO - 生成t-SNE特征可视化图
+2025-11-21 11:45:55 - INFO - ============================================================
+2025-11-21 11:45:55 - INFO - 正在提取特征用于t-SNE可视化...
+2025-11-21 11:45:57 - INFO - 提取了 55 个样本的特征，开始t-SNE降维...
+2025-11-21 11:45:58 - INFO - t-SNE可视化图已保存到: ckpt\20251121_113936_tsne_visualization.png
+2025-11-21 11:45:58 - INFO - ============================================================
+2025-11-21 11:45:58 - INFO - 阶段 2: 线性分类器训练（冻结 encoder）
+2025-11-21 11:45:58 - INFO - ============================================================
+2025-11-21 11:46:05 - INFO - 类别分布: {1: 50, 0: 200}
+2025-11-21 11:46:05 - INFO - 类别权重: tensor([0.6250, 2.5000])
+2025-11-21 11:46:12 - INFO - [Classifier Epoch 1] CE Loss=0.6954
+2025-11-21 11:46:20 - INFO - [Classifier Epoch 2] CE Loss=0.6853
+2025-11-21 11:46:27 - INFO - [Classifier Epoch 3] CE Loss=0.6728
+2025-11-21 11:46:34 - INFO - [Classifier Epoch 4] CE Loss=0.6644
+2025-11-21 11:46:41 - INFO - [Classifier Epoch 5] CE Loss=0.6517
+2025-11-21 11:46:41 - INFO - 分类器训练完成！
+2025-11-21 11:46:43 - INFO - ============================================================
+2025-11-21 11:46:43 - INFO - 测试集评估结果
+2025-11-21 11:46:43 - INFO - 测试集准确率: 83.64% (46/55)
+2025-11-21 11:46:43 - INFO - 分类: good=0, bad=1
+2025-11-21 11:46:43 - INFO - 预测结果已保存到: ckpt\20251121_113936_hazelnut_pred.csv
+2025-11-21 11:46:43 - INFO - ============================================================
+2025-11-21 11:46:43 - INFO - ============================================================
+2025-11-21 11:46:43 - INFO - 全部流程完成！
+2025-11-21 11:46:43 - INFO - ============================================================
+2025-11-21 11:46:43 - INFO - 
+所有日志、预测结果和t-SNE可视化图已保存到 ckpt/ 目录
+2025-11-21 11:46:43 - INFO - t-SNE可视化图: ckpt\20251121_113936_tsne_visualization.png

@@ -4,10 +4,6 @@ __pycache__/
 *$py.class
 *.so
 
-# 数据集目录
-**/dataset/
-**/datasets/
-
 # Checkpoint 文件
 **/ckpt/
 *.pth
@@ -27,6 +23,18 @@ __pycache__/
 *.pdf
 *.tex
 *.synctex.gz
+
+# 但允许数据集目录中的文件
+!**/datasets/**/*.png
+!**/datasets/**/*.jpg
+!**/datasets/**/*.jpeg
+!**/datasets/**/*.csv
+!**/datasets/**/*.json
+!**/dataset/**/*.png
+!**/dataset/**/*.jpg
+!**/dataset/**/*.jpeg
+!**/dataset/**/*.csv
+!**/dataset/**/*.json
 
 # IDE 文件
 .vscode/

@@ -1,215 +1,155 @@
-这是一个基于您提供的代码文件 (`nuts_only.py`, `zipper_only.py`, `model/*`, `data_loader/*`) 和目录结构生成的 `README.md`。
+# Task 3: 时间序列预测任务
 
-文档内容已根据您实际实现的\*\*有监督二分类（Good vs Bad）\*\*方案进行了重写，同时严格保持了您提供的 `README.md` 的格式结构。
-
------
-
-# 图像异常检测任务解决方案 (监督学习版)
-
-## 作业要求
-
-**Task 2: Image Anomaly Detection Task (图像异常检测任务)**
-
-  - [cite\_start]使用监督学习方法（二分类）进行图像异常检测 [cite: 111, 112]
-  - [cite\_start]基于“正常(Good)”和“异常(Bad)”样本训练分类模型 [cite: 25, 111]
-  - [cite\_start]生成特征层 t-SNE 可视化图以分析类间分离度 [cite: 111]
-  - [cite\_start]评估分类准确率 (Accuracy) [cite: 111]
-
-## 数据集说明
-
-  - **数据集类型**: MVTec AD 风格数据集
-  - **类别**:
-      - [cite\_start]`hazelnut` (榛子) [cite: 146]
-      - [cite\_start]`zipper` (拉链) [cite: 112]
-  - **数据结构**:
-    ```
-    dataset/
-    ├── hazelnut/
-    │   ├── train/
-    │   │   ├── good/          # 正常样本 (Label=0)
-    │   │   └── bad/           # 异常样本 (Label=1)
-    │   └── test/              # 测试样本
-    └── zipper/
-        ├── train/
-        │   ├── good/
-        │   └── bad/
-        └── test/
-    ```
-  - **标签定义**:
-      - `Good`: 0
-      - [cite\_start]`Bad`: 1 [cite: 29]
-
-## 文件结构
-
-```
-Image_Anomaly_Detection/
-[cite_start]├── ckpt/                        # 输出目录：日志、CSV预测结果、t-SNE图 [cite: 111]
-├── dataset/                     # 数据集根目录
-│   ├── hazelnut/
-│   └── zipper/
-├── data_loader/                 # 数据加载模块
-[cite_start]│   ├── data_loader_nuts.py      # 榛子数据加载器 [cite: 146]
-[cite_start]│   └── data_loader_zipper.py    # 拉链数据加载器 [cite: 112]
-├── model/                       # 模型定义
-[cite_start]│   ├── CNN.py                   # 简单 CNN 模型 [cite: 61]
-[cite_start]│   ├── MLP.py                   # MLP 模型 [cite: 1]
-[cite_start]│   └── ResNet18.py              # ResNet18 模型 (主模型) [cite: 90]
-[cite_start]├── nuts_only.py                 # 榛子训练主程序 [cite: 111]
-[cite_start]├── zipper_only.py               # 拉链训练主程序 [cite: 112]
-└── README.md                    # 说明文档
-```
-
-## 安装依赖
-
-```bash
-pip install torch torchvision numpy matplotlib scikit-learn tqdm pillow
-```
+使用 LSTM 回归模型进行天气温度预测。支持单层/双层 LSTM 架构，可以选择增加额外的简单注意力机制，预测温度变化量并评估预测效果。通过固定随机种子，保证结果可复现。
 
 ## 使用方法
 
-### 基本使用
+### 1. 数据集
 
-1.  **配置参数**（在 `nuts_only.py` 或 `zipper_only.py` 的 `main` 函数中修改）:
+确保数据文件结构如下：
+```
+task3_weather/
+├── dataset/
+│   └── weather.csv       # 天气数据 CSV 文件
+├── main.py
+├── preprocess.py
+└── ...
+```
 
-    ```python
-    # 示例：nuts_only.py
-    train_dataset = ClassDataset("dataset", split="train", img_size=64)
-    # ...
-    model = ResNet18(num_classes=2, pretrained=False, freeze_backbone=False)
-    # ...
-    [cite_start]trainer.train(num_epochs=50) # 调整训练轮数 [cite: 111]
-    ```
+数据文件 `weather.csv` 应包含天气相关的特征列，其中 `OT` 列是目标变量（温度）。
 
-2.  **运行程序**:
+### 2. 运行程序
 
-    ```bash
-    # 训练榛子模型
-    python nuts_only.py
+先切换到项目目录：
+```bash
+cd task3_weather
+```
 
-    # 训练拉链模型
-    python zipper_only.py
-    ```
+然后运行主程序：
+```bash
+python main.py
+```
 
-### 处理不同类别
+### 3. 参数配置
 
-由于代码逻辑已分离，请直接运行对应的脚本：
+如果想调整模型和训练参数，可以在 `main.py` 的 `main()` 函数里修改：
 
-  - `nuts_only.py` - 专门处理榛子类别
-  - `zipper_only.py` - 专门处理拉链类别
+#### 模型配置
+- `NUM_LAYERS`: LSTM 层数（`1` 或 `2`，默认：`2`）
+  - `1`: 单层 LSTM
+  - `2`: 双层 LSTM
+- `USE_ATTENTION`: 是否使用注意力机制（`True` 或 `False`，默认：`True`）
 
-## 解决方案详解
+#### 数据相关
+- `seq_len`: 序列长度，即用多少时间步预测下一个时间步（默认：`12`）
+- `target_col`: 目标列名（默认：`"OT"`）
+- `path`: 数据文件路径（默认：`"./dataset/weather.csv"`）
 
-### 核心方法
+#### 训练相关
+- `batch_size`: 批次大小（默认：`64`）
+- `learning_rate`: 学习率（默认：`1e-3`）
+- `epochs`: 训练轮数（默认：`30`）
 
-本项目采用**有监督深度学习分类**方法，直接训练模型区分正常与异常图像：
+示例配置：
+```python
+NUM_LAYERS = 2  # 双层 LSTM
+USE_ATTENTION = True  # 使用注意力机制
+seq_len = 12  # 序列长度
+epochs = 30  # 训练轮数
+```
 
-1.  [cite\_start]**数据增强 (Data Augmentation)** [cite: 44, 149]
+## 结果输出
 
-      - 为了在小样本下防止过拟合，训练集采用了强增强策略：
-      - 随机裁剪 (`RandomResizedCrop`)
-      - 随机水平翻转 (`RandomHorizontalFlip`)
-      - 随机旋转 (`RandomRotation`, 12度)
-      - 颜色抖动 (`ColorJitter`: 亮度/对比度/饱和度/色相)
+### 1. 控制台输出
 
-2.  [cite\_start]**模型架构** [cite: 90]
+训练过程中会在控制台打印这些信息：
+- 模型配置（LSTM 层数、是否使用注意力）
+- 设备信息（CPU/GPU）
+- 数据加载信息
+- 每个 epoch 的训练损失
+- **测试集评估结果**：
+  - MAE（平均绝对误差）
+  - RMSE（均方根误差）
+  - 分别显示标准化后和原始尺度的结果
 
-      - **Backbone**: ResNet18 (包含 Encoder 和 Classifier)
-      - **Encoder**: 提取图像的高维特征 (512维)
-      - **Classifier**: 全连接层将特征映射到 2 个类别 (Good/Bad)
+示例输出：
+```
+====== 测试集结果（OT变化量预测，原始尺度） ======
+MAE  = 0.1234
+RMSE = 0.2345
+```
 
-3.  [cite\_start]**训练策略** [cite: 111]
+### 2. 输出文件
 
-      - 损失函数: 交叉熵损失 (`CrossEntropyLoss`)
-      - 优化器: Adam (学习率 0.001)
-      - 训练过程中利用 `tqdm` 监控 Loss 变化
+训练完成后，所有结果会保存在 `ckpt/{timestamp}/` 目录下（`{timestamp}` 格式为 `YYYYMMDD_HHMMSS`）。
 
-4.  [cite\_start]**特征可视化** [cite: 111]
+#### 2.1 日志文件 (`log_{timestamp}.txt`)
+- 记录了整个训练过程
+- 包括模型配置、数据信息、每个 epoch 的损失值
+- 测试集评估结果（MAE、RMSE）
+- 文件保存路径信息
 
-      - 使用 t-SNE 算法对 Encoder 提取的高维特征进行降维
-      - 在 2D 平面上展示 Good 和 Bad 样本的分布情况，直观评估模型的特征分离能力
+#### 2.2 模型文件 (`model_{timestamp}.pth`)
+- 训练好的模型权重
+- 可以用 `torch.load()` 加载用于推理
 
-### 技术特点
+#### 2.3 预测结果文件 (`predictions_{timestamp}.csv`)
+- CSV 格式，包含以下列：
+  - `Current_OT`: 当前时刻的 OT 值（温度）
+  - `True_Delta_OT`: 真实的 OT 变化量
+  - `Predicted_Delta_OT`: 预测的 OT 变化量
+  - `Delta_Error`: 变化量的误差
+  - `Delta_Absolute_Error`: 变化量的绝对误差
+  - `True_OT_Next`: 真实的下一时刻 OT 值
+  - `Predicted_OT_Next`: 通过预测变化量计算的下一时刻 OT 值
+  - `OT_Error`: OT 值的误差
+  - `OT_Absolute_Error`: OT 值的绝对误差
+- 可以拿来进一步分析和评估
 
-  - **监督学习**: 利用异常样本标签进行直接监督，分类边界更明确
-  - **强数据增强**: 提升模型对光照、位置变化的鲁棒性
-  - **特征降维分析**: 通过 t-SNE 验证模型是否学到了具有判别性的特征
-  - **自动日志记录**: 自动保存训练日志 (`.log`) 和预测结果 (`.csv`)
+#### 2.4 可视化图 (`visualization_{timestamp}.png`)
+- 包含两个子图：
+  - 上图：OT 变化量的预测对比（真实值 vs 预测值）
+  - 下图：通过变化量计算的 OT 值对比（真实值 vs 预测值）
+- 可以直观看看模型预测效果怎么样
 
-## 输出结果
+### 3. 结果文件位置
 
-程序会生成以下输出（保存在 `ckpt/` 目录）：
+所有输出文件保存在：
+```
+task3_weather/ckpt/{timestamp}/
+├── log_{timestamp}.txt
+├── model_{timestamp}.pth
+├── predictions_{timestamp}.csv
+└── visualization_{timestamp}.png
+```
 
-1.  **控制台/日志输出**:
+其中 `{timestamp}` 格式为 `YYYYMMDD_HHMMSS`，例如 `20251218_212955`。
 
-      - 训练集/测试集样本数量
-      - 每个 Epoch 的平均 Loss
-      - 最终测试集的分类准确率
+## 评估指标说明
 
-2.  **可视化结果**:
+- **MAE (Mean Absolute Error)**: 平均绝对误差，就是预测值和真实值差的绝对值的平均，越小越好
+- **RMSE (Root Mean Squared Error)**: 均方根误差，对误差平方后求平均再开根号，越小越好，对大误差更敏感
 
-      - [cite\_start]**t-SNE 分布图** (`*_tsne_visualization.png`): [cite: 111]
-
-          - 蓝色点：Good (正常)
-          - 红色点：Bad (异常)
-          - 展示两类样本在特征空间中的分离程度
-
-      - [cite\_start]**预测结果表** (`*_pred.csv`): [cite: 111]
-
-          - 包含测试集中每一张图片的真实标签 (`true`) 和预测标签 (`pred`)
-
-## 评估指标
-
-  - [cite\_start]**Accuracy (准确率)**: 图像级分类的主要评估指标 [cite: 111]
-
-      - 计算公式: (预测正确的样本数 / 总样本数) \* 100%
-      - 范围: [0, 100]
-
-  - **t-SNE 可分性**:
-
-      - 定性指标，观察红蓝点簇是否明显分离
-
-## 预期结果
-
-根据当前 ResNet18 模型配置，预期性能：
-
-  - **Accuracy**: 在经过 50-60 轮训练后，预期达到较高的分类准确率（\>90%）。
-  - **可视化**: t-SNE 图中，蓝色簇（正常）和红色簇（异常）应有较清晰的边界。
-
-## 技术细节
-
-### 特征提取流程
-
-1.  [cite\_start]图像预处理：Resize 到 64x64，转换为 Tensor [cite: 150]
-2.  [cite\_start]输入 ResNet18 模型，经过 `conv1` -\> `avgpool` 提取特征 [cite: 90]
-3.  [cite\_start]获得 512 维的特征向量 (`get_features` 方法) [cite: 108]
-
-### 分类与预测
-
-1.  特征向量输入全连接层 (`fc`)
-2.  输出 2 维 Logits
-3.  [cite\_start]使用 `torch.max` 获取预测类别 (0 或 1) [cite: 111]
-
-### t-SNE 生成
-
-1.  提取测试集所有样本的 Encoder 特征
-2.  使用 `sklearn.manifold.TSNE` 将 512 维降至 2 维
-3.  [cite\_start]使用 `matplotlib` 绘制散点图，根据真实标签着色 [cite: 111]
+程序会输出两个尺度的评估结果：
+1. **标准化后的结果**：模型内部使用的标准化尺度
+2. **原始尺度的结果**：还原到原始温度单位的结果（更直观）
 
 ## 注意事项
 
-1.  [cite\_start]**GPU 支持**: 代码会自动检测 CUDA，建议使用 GPU 加速训练 [cite: 111]
-2.  [cite\_start]**数据路径**: 确保 `dataset` 目录结构正确，包含 `good` 和 `bad` 子文件夹 [cite: 146]
-3.  [cite\_start]**中文显示**: 代码已配置 matplotlib 的中文字体 (SimHei 等)，防止图表乱码 [cite: 111]
+1. **数据格式**: 确保 `weather.csv` 文件格式正确，包含 `OT` 列作为目标变量
+2. **模型选择**: 
+   - 单层 LSTM：参数少，训练快，但表达能力可能不够
+   - 双层 LSTM：参数多，训练慢，但通常效果更好
+   - 注意力机制：可以提升模型对重要时间步的关注，但会增加计算量
+3. **序列长度**: `seq_len` 表示用过去多少个时间步来预测下一个时间步，可以根据数据特点调整
+4. **训练时间**: 看数据量和 GPU，一般几分钟到十几分钟不等
+5. **随机种子**: 固定了随机种子（42），保证结果可以复现
 
-## 参数调整建议
+## 其他工具
 
-  - [cite\_start]**model**: 可在 `main()` 中切换为 `CNN` 或 `MLP` 进行实验 [cite: 111]
-  - [cite\_start]**img\_size**: 默认为 64，可调整为 128 或 256 以保留更多细节 [cite: 146]
-  - [cite\_start]**num\_epochs**: 如果 Loss 收敛较慢，可增加训练轮数（当前 Nuts=50, Zipper=60） [cite: 111, 112]
-  - **learning\_rate**: 默认 0.001，可根据 loss 曲线调整
+### 模型对比工具
 
-## 扩展建议
+项目还提供了 `gen_table.py` 和 `viz.py` 用于对比不同模型配置的结果：
 
-1.  [cite\_start]**模型替换**: 尝试使用预训练权重的 ResNet (`pretrained=True`) 加快收敛 [cite: 102]
-2.  [cite\_start]**类别权重**: 如果正负样本极度不平衡，可取消代码中 `class_weights` 的注释 [cite: 111]
-3.  **更深的网络**: 对于复杂的纹理异常，可以尝试 ResNet50 或更复杂的 Attention 机制
+- `gen_table.py`: 从多个日志文件中提取结果，生成对比表格
+- `viz.py`: 可视化多个模型的预测结果对比

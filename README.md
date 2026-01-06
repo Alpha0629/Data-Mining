@@ -5,14 +5,28 @@
 
 ## 环境要求
 
-### 版本
-Python 3.12
-CUDA  12.8
-
 ### 硬件配置
 本项目在以下硬件配置下运行和测试：
+设备1:
 - **GPU**: NVIDIA RTX 5090 (32GB)
 - **CPU**: Intel Xeon Platinum 8470Q (25 vCPU)
+
+设备2:
+- **GPU**: NVIDIA GeForce RTX 4060 LapTop GPU (16GB)
+- **CPU**: Intel(R) Core(TM) Ultra 9 185H   2.50 GHz
+  
+设备3:
+- **CPU**: 13th Gen Intel(R) Core(TM) i7-13700H (2.40 GHz)
+
+
+### 版本
+设备1:
+Python 3.12
+CUDA  12.8
+  
+### 声明
+- 经验证，即便固定了一系列随机种子，但是在不同设备上结果仍有差异，各设备运行数据难以做到和论文中的完全一致，如果仅使用CPU，差异会更大
+
 
 ### 依赖安装
 安装项目所需的所有依赖包：

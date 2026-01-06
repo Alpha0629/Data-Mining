@@ -212,7 +212,7 @@ if __name__ == "__main__":
     # 配置参数
     # ========================================
     # 阈值分位数（可配置）
-    THRESHOLD_PERCENTILE = 97  # 使用训练集的95分位数作为阈值，可以修改为其他值（如90, 95, 99等）
+    THRESHOLD_PERCENTILE = 99  # 使用训练集的95分位数作为阈值，可以修改为其他值（如90, 95, 99等）
     
     # 设置日志（会自动创建 ckpt 文件夹）
     logger = setup_logging(log_dir="ckpt", percentile=THRESHOLD_PERCENTILE)

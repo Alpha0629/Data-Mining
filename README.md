@@ -7,6 +7,7 @@
 
 ### 硬件配置
 本项目在以下硬件配置下运行和测试：
+
 设备1:
 - **GPU**: NVIDIA RTX 5090 (32GB)
 - **CPU**: Intel Xeon Platinum 8470Q (25 vCPU)

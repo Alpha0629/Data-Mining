@@ -206,7 +206,7 @@ def evaluate(scores, labels, threshold, logger, output_dir="ckpt", nu=None, kern
 
 if __name__ == "__main__":
     # 固定随机种子
-    set_seed(seed=42)
+    set_seed(seed=42) 
     
     # ========================================
     # 配置参数
